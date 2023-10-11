@@ -1,6 +1,6 @@
 # NFT on Soroban
 
-This repository contains a proof of concept (POC) implementation of a non-fungible token (NFT) on the Soroban blockchain platform, following the ERC721 standard.
+This repository contains a proof of concept (POC) implementation of a non-fungible token (NFT) on the Soroban blockchain platform, following the ERC721 standard. Compatible with Preview 11.
 
 ## Getting Started
 
