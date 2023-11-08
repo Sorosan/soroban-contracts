@@ -1,69 +1,75 @@
-# Ballot Soroban contract
-This repository contains a [soroban](https://soroban.stellar.org/) contract which allows users to participate in a ballot process.
+# Smart Contract for Voting and Ballot Processes
 
-## Build the contract
+## Overview
 
-- Install Soroban and Rust SDK following the instructions [here](https://soroban.stellar.org/docs/getting-started/setup)
-- Test the contract. To do it, execute the following command from the contract root folder:
+This smart contract is designed to facilitate and secure voting and ballot processes on the Sorosan blockchain. Voting and ballot processes are critical for democratic decision-making, and using blockchain technology enhances transparency, security, and trust in these processes.
 
-```
-cargo test
-```
-This will compile and execute tests. After checking they are successful, you can generate the wasm file
-  
-- To generate the wasm file, execute the following from the contract root folder
+This README provides an overview of the important features and usefulness of this smart contract.
 
-```shell
-soroban contract build
-```
+## Key Features
 
-After that, you will be able to deploy and install it. You can see how to use soroban-cli to deploy contracts in the [docs](https://soroban.stellar.org/docs/getting-started/hello-world). 
-Before deploying the contract you will need to create a user. You can do it using "soroban config":
+### 1. Configuration
 
-```shell
-soroban config identity generate --global <your_user_name>
-```
-The above simple command will create a user. If you want to see the user's public key you can execute:
+- The contract allows the contract admin to configure the voting process with a specified start and end timestamp. This ensures that voting only occurs within a defined timeframe, preventing unauthorized voting.
 
-```shell
-soroban config identity address <your_user_name>
-```
-For showing the private key you can use:
+### 2. Secure Voting
 
-```shell
-soroban config identity show <your_user_name>
-```
-When you have the user ready, add a network using the following command:
+- Users can cast their votes for specific candidates using the `vote` function. The contract enforces rules to prevent multiple votes by the same user and ensures that voters cannot vote outside of the configured time frame.
 
-```shell
-soroban config network add --global futurenet --rpc-url https://rpc-futurenet.stellar.org:443 --network-passphrase "Test SDF Future Network ; October 2022"
-```
+### 3. Delegation of Votes
 
-And now, you can deploy as follows:
+- Voters can delegate their votes to other users using the `delegate` function. Delegation of votes allows users to appoint a trusted proxy to vote on their behalf, enhancing flexibility in the voting process.
 
-```shell
-soroban contract deploy --wasm target/wasm32-unknown-unknown/release/<your_wams_file>.wasm --source the_owner --network futurenet
-```
-## Contract functions
+### 4. Vote Counting
 
-- **configure**: This function receives the contract admin (should be the same address which deployed the contract) and the ballot start and end timestamps. The, it stores the those timestamps using the *Config* struct so they can be checked later.
+- The contract provides a `count` function that tallies the votes for each candidate. The results are presented in a map, making it easy to determine the outcome of the ballot.
 
-- **vote**: This function receives the contract admin, the voter and the candidate. Both voter and candidate are received as a symbols so the contract invoker should be in charge of managing the voters identities in its side. The *vote* function has some rules:
-   * You cannot not vote when the current timestamp is out of range (the range between *ts_start* and *ts_end* configured by which *configure* function).
-   * You cannot vote if you have delegated your vote in another voter
-   * You cannot vote if you have already voted
+### 5. Error Handling
 
-If the voter can vote, then the candidate will receive 1 vote more. If the voter has delegated votes, then the candidate will receive 1 vote more for every voter delegated vote.
+- The contract includes a comprehensive error-handling mechanism, ensuring that any violations of the voting rules are properly identified and reported.
 
-- **delegate**: This function receives the contract admin, the voter who wants to delegate his/her vote (*o_voter*) and the voter to delegate the vote to (*d_voter*). This function also has some rules:
-   * You cannot not delegate your vote when the current timestamp is out of range
-   * You cannot delegate your vote if you have already voted
-   * You cannot delegate your vote if the target voter has already voted
-   * You cannot delegate your vote if your voter is already delegated
-   * You cannot delegate your vote if the target voter vote is already delegated
-   * You cannot delegate your vote if there are voters who have delegated you their votes
+## Usefulness
 
-If the vote can be delegated, the delegation is stored so it can be take into account later.
+This smart contract is highly useful for various scenarios and organizations, including:
 
-- **count**: This function counts the votes for each candidates and returns the results.
- 
+### 1. Decentralized Governance
+
+- Decentralized organizations and blockchain-based projects can use this contract to conduct elections, polls, or referendums among token holders to make important decisions.
+
+### 2. Secure Elections
+
+- Governments and election commissions can leverage this smart contract for secure and tamper-proof voting in elections, ensuring the integrity of the voting process.
+
+### 3. Corporate Decision-Making
+
+- Businesses and corporations can use this contract to enable shareholders to participate in important decision-making processes, such as board member elections and policy decisions.
+
+### 4. Non-Profit Organizations
+
+- Non-profit organizations can use this contract to involve their members or supporters in decision-making, fundraising campaigns, and choosing key initiatives.
+
+### 5. University Elections
+
+- Educational institutions can conduct student council or faculty elections using this contract, providing a transparent and secure voting platform.
+
+### 6. Community Initiatives
+
+- Local communities can use this contract to facilitate community voting on projects, initiatives, or budget allocation, ensuring equitable participation.
+
+## Benefits
+
+- **Transparency**: All voting actions and results are recorded on the blockchain, providing an immutable and transparent record of the voting process.
+
+- **Security**: The contract enforces strict rules to prevent fraudulent activities, making it difficult for users to manipulate the voting process.
+
+- **Trust**: Participants can trust the results of the ballot, as the contract ensures that only valid votes are counted.
+
+- **Efficiency**: The automation of vote counting and error handling reduces the administrative burden of organizing elections.
+
+- **Flexibility**: The ability to delegate votes allows users to participate even if they cannot vote in person.
+
+- **Accessibility**: Voting can be conducted online, making it accessible to a wide range of participants.
+
+## Conclusion
+
+This smart contract for voting and ballot processes is a valuable tool for a wide range of organizations and scenarios. Its ability to provide secure, transparent, and efficient voting processes makes it an essential component for organizations seeking democratic and decentralized decision-making. Whether for governance, elections, or community initiatives, this contract contributes to the integrity and trustworthiness of the voting process.
