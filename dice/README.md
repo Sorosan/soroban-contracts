@@ -1,15 +1,15 @@
-# NFT Emulating Dice on Soroban Preview 11
+# Dice on Soroban
 
-This repository presents the concept of a on-chain dice that uses Stellars PRNG. The PRNG module described here utilizes a robust CSPRNG (ChaCha20) for pseudo-random number generation within the Stellar network. It is advisable only for applications where the acceptable risk of validator influence exists.
+## Overview
 
-## Getting Started
+The "Dice on Soroban Preview 11" repository introduces an on-chain dice concept utilizing Stellar's PRNG (Pseudo-Random Number Generator). This PRNG module, powered by the robust CSPRNG (ChaCha20), ensures secure pseudo-random number generation within the Stellar network. It's important to note that this implementation is recommended for applications where the acceptable risk of validator influence exists.
 
-To initiate this POC, ensure that the Soroban platform is installed and running on your local machine.
+## Key Features
 
-Once Soroban is set up, clone this repository and execute the following commands to deploy the NFT contract:
+The smart contract, named `DiceContract`, is centered around the `roll` function, allowing users to obtain a random number between 1 and 6. This functionality is facilitated by leveraging Stellar's PRNG to ensure fair and unpredictable outcomes.
 
-```bash
-make            # build the contract (should generate .wasm)
-```
+## Objectives and Goals of Creating this Smart Contract
 
-This will build the contract, producing the necessary .wasm file for deployment on the Soroban blockchain platform.
+The primary objective of this smart contract is to provide a decentralized and trustless mechanism for obtaining random numbers within the Stellar network. By utilizing a robust CSPRNG and Stellar's PRNG capabilities, the contract aims to deliver secure and fair results, making it suitable for applications such as on-chain gaming or any scenario requiring reliable randomness.
+
+In summary, the "Dice on Soroban Preview 11" smart contract presents an innovative approach to on-chain dice rolling, offering a secure and decentralized solution for obtaining random numbers within the Stellar network.

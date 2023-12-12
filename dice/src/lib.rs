@@ -7,7 +7,7 @@ pub struct DiceContract;
 #[contractimpl]
 impl DiceContract {
     pub fn roll(env: Env) -> u64 {
-        env.prng().u64_in_range(1..=6)
+        env.prng().gen_range(1..=6)
     }
 }
 
